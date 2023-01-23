@@ -6,6 +6,9 @@
 
 int main(int argc, char const *argv[])
 {
-    /* code */
+    while (1)
+    {
+        printf("going...");
+    }
     return 0;
 }
