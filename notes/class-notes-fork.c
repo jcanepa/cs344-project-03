@@ -21,7 +21,7 @@ int main(void)
         // printf("Child PID is %d\n", getpid());
         // printf("Child parent PID is %d\n", getppid());
 
-        char *new_argv[] = {"ls", NULL};
+        char *new_argv[] = {"ls", "-a", "-l", "/usr/bin", NULL};
 
         execvp("ls", new_argv);
 
