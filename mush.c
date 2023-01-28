@@ -26,15 +26,13 @@ int main(void)
         /**
          * Get text from stdin
          */
-        char str[100];
-        fgets(str, 100, stdin);
+        char str[2048];
+        fgets(str, 2048, stdin);
         printf("🦜 %s\n", str);
 
-        // end execution if user inputs `exit`
+        // end execution on `exit`
         if (strcmp(str, "exit\n") == 0)
-        {
             break;
-        }
 
         /**
          * Separate command into individual words
@@ -43,35 +41,34 @@ int main(void)
         char *token = strtok(str, delimiter);
 
         int i = 0;
-        char *command_words[2];
+        char *command_words[128];
 
         while (token != NULL)
         {
             command_words[i] = token;
+            printf("Word %d is %s\n", i, token);
             i++;
-            printf("Command parts are: %s\n", token);
             token = strtok(NULL, delimiter);
         }
-        // terminate array
-        command_words[i] = NULL;
+        // command_words[i] = '\0';
 
-        for (unsigned long i = 0; i < sizeof(command_words); i++)
-            printf("%s ", command_words[i]);
+        // for (unsigned long i = 0; i < sizeof(command_words); i++)
+        //     printf("%s ", command_words[i]);
 
-        pid_t pid = fork();
+        // pid_t pid = fork();
 
-        if (pid == 0)
-        {
-            // child process
-            printf("Child process running: %s\n", command_words[0]);
+        // if (pid == 0)
+        // {
+        //     // child process
+        //     printf("Child process running: %s\n", command_words[0]);
 
-            execvp("foo", command_words);
-            perror("exec");
-            exit(0); // success!
-        }
+        //     execvp("foo", command_words);
+        //     perror("exec");
+        //     exit(0); // success!
+        // }
 
-        wait(NULL);
-        printf("done!\n");
+        // wait(NULL);
+        // printf("done!\n");
     }
     return 0;
 }
