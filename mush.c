@@ -11,8 +11,7 @@ void print_prompt(void)
 
 int main(void)
 {
-    // until the user quits (control c)
-    while (1)
+    while (1) // until the user quits (control c)
     {
         print_prompt();
 
@@ -23,8 +22,7 @@ int main(void)
         fgets(str, 2048, stdin);
         printf("🦜 %s\n", str);
 
-        // end execution on `exit`
-        if (strcmp(str, "exit\n") == 0)
+        if (strcmp(str, "exit\n") == 0) // end on `exit`
             break;
 
         /**
@@ -38,17 +36,17 @@ int main(void)
 
         while (token != NULL)
         {
-            // printf("Word %d is %s\n", i, token);
             command_words[i] = token;
             token = strtok(NULL, delimiter);
             i++;
         }
         command_words[i] = NULL;
 
-        // get the arg count
+        /**
+         * Print words
+         */
         // int word_count = i;
         // printf("Word count is %d\n", word_count);
-
         // for (int i = 0; i < word_count; i++)
         //     printf("%s\n", command_words[i]);
 
