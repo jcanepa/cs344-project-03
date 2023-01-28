@@ -14,13 +14,6 @@ int main(void)
     // until the user quits (control c)
     while (1)
     {
-        // 1. print a prompt
-        // 2. read a line fgets()
-        // 3. parse down to individual words strtok()
-        // 4. put words into char* aray
-        // 5. terminate array with NULL
-        // 6. call execvp() on words array
-
         print_prompt();
 
         /**
@@ -45,30 +38,34 @@ int main(void)
 
         while (token != NULL)
         {
+            // printf("Word %d is %s\n", i, token);
             command_words[i] = token;
-            printf("Word %d is %s\n", i, token);
-            i++;
             token = strtok(NULL, delimiter);
+            i++;
         }
-        // command_words[i] = '\0';
+        command_words[i] = NULL;
 
-        // for (unsigned long i = 0; i < sizeof(command_words); i++)
-        //     printf("%s ", command_words[i]);
+        // get the arg count
+        // int word_count = i;
+        // printf("Word count is %d\n", word_count);
 
-        // pid_t pid = fork();
+        // for (int i = 0; i < word_count; i++)
+        //     printf("%s\n", command_words[i]);
 
-        // if (pid == 0)
-        // {
-        //     // child process
-        //     printf("Child process running: %s\n", command_words[0]);
+        pid_t pid = fork();
 
-        //     execvp("foo", command_words);
-        //     perror("exec");
-        //     exit(0); // success!
-        // }
+        if (pid == 0)
+        {
+            // child process
+            printf("Child process running: %s\n", command_words[0]);
 
-        // wait(NULL);
-        // printf("done!\n");
+            execvp(command_words[0], command_words);
+            perror("exec");
+            exit(0); // success!
+        }
+
+        wait(NULL);
+        printf("done!\n");
     }
     return 0;
 }
