@@ -4,13 +4,15 @@
 #include <unistd.h>   // fork, execvp
 #include <sys/wait.h> // wait
 
-void print_prompt(void) { printf("$ "); }
-
 int main(void)
 {
+
     while (1) // until the user quits (control c)
     {
-        print_prompt();
+        char cwd[100];
+        getcwd(cwd, 100);
+
+        printf("$ ");
 
         /**
          * Get text from stdin
@@ -40,8 +42,15 @@ int main(void)
         // delete new line char on last word
         strtok(command_words[i - 1], "\n");
 
-        command_words[i] = "/usr/bin";
-        command_words[i + 1] = NULL;
+        if (strcmp(command_words[0], "ls") == 0)
+        {
+            command_words[i] = cwd;
+            command_words[i + 1] = NULL;
+        }
+        else
+        {
+            command_words[i] = NULL;
+        }
 
         /**
          * Print words
@@ -56,9 +65,7 @@ int main(void)
          */
         int result;
 
-        if (
-            (strcmp(command_words[0], "cd\n") == 0) ||
-            (strcmp(command_words[0], "cd") == 0))
+        if ((strcmp(command_words[0], "cd") == 0))
         {
             result = chdir(command_words[1]);
 

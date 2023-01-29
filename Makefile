@@ -14,4 +14,3 @@ clean:
 
 %: %.c
 	$(CC) $(CCOPTS) -o $@ $< $(LIBS)
-    
