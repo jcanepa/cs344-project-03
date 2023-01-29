@@ -25,7 +25,7 @@ int main(void)
             exit(0);
 
         /**
-         * Separate command into words
+         * Separate command into words, split on any word boundary
          */
         int i = 0;
         char delimiter[4] = " \t\n\r";
