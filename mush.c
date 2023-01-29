@@ -56,7 +56,9 @@ int main(void)
          */
         int result;
 
-        if (strcmp(command_words[0], "cd\n") == 0)
+        if (
+            (strcmp(command_words[0], "cd\n") == 0) ||
+            (strcmp(command_words[0], "cd") == 0))
         {
             result = chdir(command_words[1]);
 
