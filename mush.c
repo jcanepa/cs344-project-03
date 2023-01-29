@@ -28,7 +28,7 @@ int main(void)
          * Separate command into words
          */
         int i = 0;
-        char delimiter[2] = " ";
+        char delimiter[4] = " \t\n\r";
         char *command_words[128];
         char *token = strtok(str, delimiter);
 
