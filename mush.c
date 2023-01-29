@@ -12,7 +12,7 @@ int main(void)
         char cwd[100];
         getcwd(cwd, 100);
 
-        printf("$ ");
+        printf("%s $ ", cwd);
 
         /**
          * Get text from stdin
