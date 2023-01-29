@@ -19,7 +19,7 @@ int main(void)
          */
         char str[2048];
         fgets(str, 2048, stdin);
-        // printf("🦜 %s\n", str);
+        // printf("🦜 %s\n", str);      // parrot it back
 
         if (strcmp(str, "exit\n") == 0) // end shell on `exit`
             exit(0);
@@ -27,11 +27,10 @@ int main(void)
         /**
          * Separate command into words
          */
-        char delimiter[2] = " ";
-        char *token = strtok(str, delimiter);
-
         int i = 0;
+        char delimiter[2] = " ";
         char *command_words[128];
+        char *token = strtok(str, delimiter);
 
         while (token != NULL)
         {
@@ -85,14 +84,6 @@ int main(void)
             //     command_words[0]);
 
             execvp(command_words[0], command_words);
-
-            // char *new_argv[] = {
-            //     "ls",
-            //     "-a",
-            //     "-h",
-            //     "/Users/jcanepa/code/cs344-project-03",
-            //     NULL};
-            // execvp("ls", new_argv);
 
             perror("exec");
             exit(1); // failure
