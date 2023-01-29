@@ -4,10 +4,7 @@
 #include <unistd.h>   // fork, execvp
 #include <sys/wait.h> // wait
 
-void print_prompt(void)
-{
-    printf("$ ");
-}
+void print_prompt(void) { printf("$ "); }
 
 int main(void)
 {
@@ -20,13 +17,13 @@ int main(void)
          */
         char str[2048];
         fgets(str, 2048, stdin);
-        printf("🦜 %s\n", str);
+        // printf("🦜 %s\n", str);
 
         if (strcmp(str, "exit\n") == 0) // end on `exit`
             break;
 
         /**
-         * Separate command into individual words
+         * Separate command into words
          */
         char delimiter[2] = " ";
         char *token = strtok(str, delimiter);
@@ -40,7 +37,8 @@ int main(void)
             token = strtok(NULL, delimiter);
             i++;
         }
-        command_words[i] = NULL;
+        command_words[i] = "/usr/bin";
+        command_words[i + 1] = NULL;
 
         /**
          * Print words
@@ -50,20 +48,23 @@ int main(void)
         // for (int i = 0; i < word_count; i++)
         //     printf("%s\n", command_words[i]);
 
-        pid_t pid = fork();
+        /**
+         * Create a child process to run the command
+         */
+        pid_t process_id = fork();
 
-        if (pid == 0)
+        if (process_id == 0)
         {
-            // child process
-            printf("Child process running: %s\n", command_words[0]);
+            // printf(
+            //     "Child process to run %s\n",
+            //     command_words[0]);
 
-            execvp(command_words[0], command_words);
+            execvp("ls", command_words);
             perror("exec");
             exit(0); // success!
         }
 
         wait(NULL);
-        printf("done!\n");
     }
     return 0;
 }
