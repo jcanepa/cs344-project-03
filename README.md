@@ -12,4 +12,4 @@ Run `./mush` from the root of the cloned repo.
 - `exit`
 - `which sh`
 - `echo $PATH`
-` & more!
+- & more!
