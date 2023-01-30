@@ -7,7 +7,8 @@
 int main(void)
 {
 
-    while (1) // until the user quits (control c)
+    // until the user quits (control c)
+    while (1)
     {
         char cwd[100];
         getcwd(cwd, 100);
@@ -19,9 +20,9 @@ int main(void)
          */
         char str[2048];
         fgets(str, 2048, stdin);
-        // printf("🦜 %s\n", str);      // parrot it back
 
-        if (strcmp(str, "exit\n") == 0) // end shell on `exit`
+        // end shell on `exit` command
+        if (strcmp(str, "exit\n") == 0)
             exit(0);
 
         /**
@@ -38,6 +39,7 @@ int main(void)
             token = strtok(NULL, delimiter);
             i++;
         }
+
         // delete new line char on last word
         strtok(command_words[i - 1], "\n");
 
@@ -50,14 +52,6 @@ int main(void)
         {
             command_words[i] = NULL;
         }
-
-        /**
-         * Print words
-         */
-        // int word_count = i;
-        // printf("Word count is %d\n", word_count);
-        // for (int i = 0; i < word_count; i++)
-        //     printf("%s\n", command_words[i]);
 
         /**
          * Handle `cd`
@@ -79,14 +73,11 @@ int main(void)
 
         if (process_id == 0)
         {
-            // printf(
-            //     "Child process to run %s\n",
-            //     command_words[0]);
-
             execvp(command_words[0], command_words);
 
+            // handle failure
             perror("exec");
-            exit(1); // failure
+            exit(1);
         }
 
         wait(NULL);
